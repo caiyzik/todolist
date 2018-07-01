@@ -1,0 +1,69 @@
+#: import main main
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import ListItemButton kivy.uix.listview.ListItemButton
+#: import RecycleView kivy.uix.recycleview
+
+ToDoLayout: #this is the class that was created in the
+#python file not the actual python file itself
+#why do I need to have this line opposed to just the below
+#code (similiar to the other tutorials?)
+
+<ToDoListItem>
+    orientation: "horizontal"
+    canvas:
+        Color:
+            rgb: [0, 0, 1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    item_text: ''
+    timer_text: ''
+    btn_text: 'Start'
+    Label:
+        text: root.item_text
+    Label:
+        text: root.timer_text
+
+    Button:
+        text: root.btn_text
+        background_color: [0, 1, 0, 1]
+        #size_hint_x:
+        on_press: root.onClick()
+        #on_release: root.update()
+
+
+<ToDoLayout>:
+
+   # canvas:
+   #     Color:
+   #         rgb: [1, 1, 1]
+   #     Rectangle:
+   #         pos: self.pos
+   #         size: self.size
+    orientation: "vertical"
+    padding: 10
+    spacing: 10
+    rv: rv
+
+    RecycleView:
+        id: rv
+        scroll_type: ['bars', 'content']
+        scroll_wheel_distance: dp(114)
+        bar_width: dp(10)
+        viewclass: 'ToDoListItem'
+        RecycleBoxLayout:
+            default_size: None, dp(56)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
+            spacing: dp(2)
+
+    BoxLayout:
+        size_hint_y: .2
+        TextInput:
+            id: todo_item_input
+            hint_text: "Insert item here..."
+        Button:
+            text: "Add Items"
+            on_press: root.insert(todo_item_input.text)
